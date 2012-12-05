@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Kt</title>
+  <title><%= yield(:title) %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= render 'layouts/shim' %>
 </head>
 <body>
 
-<%= yield %>
+<div class="container pagination-centered">
+  <div>
+    <h1><%= yield(:title) %></h1>
+    <%= yield %>
+  </div>
+</div>
 
 </body>
 </html>

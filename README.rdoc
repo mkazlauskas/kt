@@ -1,3 +1,0 @@
-== Reed-Muller code and Majority Logic Decoding
-
-VU MIF programų sistemų 4 kurso kodavimo teorijos praktinė užduotis.

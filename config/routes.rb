@@ -10,8 +10,13 @@ Kt::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
+
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  root :to => 'reed_mullers#new'
+
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :reed_mullers, only: [ :create, :show ]
 
   # Sample resource route with options:
   #   resources :products do
@@ -45,10 +50,6 @@ Kt::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
 
   # See how all your routes lay out with "rake routes"
 

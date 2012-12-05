@@ -1,0 +1,14 @@
+<% provide(:title, "Reed-Muller Parameters") %>
+
+<%= render partial: 'shared/error_messages', 
+  locals: {errors: @reed_muller.errors} %>
+
+<%= simple_form_for(@reed_muller, 
+      html: { class: 'form-inline' }) do |f| %>
+
+  <%= f.text_field :r, placeholder: 'r' %>
+  <%= f.text_field :m, placeholder: 'm' %>
+
+  <%= f.submit "Next", class: 'btn btn-primary' %>
+
+<% end %>

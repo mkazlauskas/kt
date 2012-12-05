@@ -29,10 +29,10 @@ class Vector < ActiveRecord::Base
     # Validuoja, ar vektoriaus elementai susideda
     # tik is duoto kuno elementu
     def elements_must_consist_of_body
-      return if self.body.blank? || self.elements.blank?
+      return if uninitialized?
       self.elements.each_char do |e|
         if !self.body.include? e
-          errors.add(:elements, "Vector with body #{self.body} and elements #{self.elements} contains illegal element #{e}")
+          errors.add(:elements, "#{self.body} and elements #{self.elements} contains illegal element #{e}")
           break
         end
       end
@@ -41,10 +41,14 @@ class Vector < ActiveRecord::Base
     # Validuoja, ar vektorius turi 
     # reikiama skaiciu elementu
     def elements_must_have_specified_length
-      return if size.nil?
+      return if size.nil? || uninitialized?
       errors.add(
         :size, 
-        "Vector #{self.elements} has #{self.elements.length} characters, but it's size was set to #{self.size}") \
+        "#{self.elements} has #{self.elements.length} characters, but it's size was set to #{self.size}") \
           if self.elements.length != self.size
+    end
+
+    def uninitialized?
+      self.body.blank? || self.elements.blank?
     end
 end

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204155235) do
+ActiveRecord::Schema.define(:version => 20121204173913) do
+
+  create_table "reed_mullers", :force => true do |t|
+    t.integer  "r"
+    t.integer  "m"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "vectors", :force => true do |t|
     t.string   "body"

@@ -1,0 +1,9 @@
+<% if errors.any? %>
+  <div class="error-container">
+    <div id="error_explaination">
+      <div class="alert alert-error">
+        <%= format_error_message(errors) %>
+      </div>
+    </div>
+  </div>
+<% end %>
