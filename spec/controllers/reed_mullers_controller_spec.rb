@@ -16,7 +16,8 @@ describe ReedMullersController do
       let(:rm) { { id: 1, r: 3, m: 5 } }
       it "should redirect to new reed muller path" do
         post :create, reed_muller: rm
-        response.should redirect_to reed_muller_path(1)
+        response.should redirect_to new_binary_vector_path(
+          reed_muller_id: rm[:id])
       end
 
       it "should persist reed muller" do
@@ -39,12 +40,5 @@ describe ReedMullersController do
           to change { ReedMuller.count }.by(0)
       end
     end
-  end
-
-  describe '#show' do
-
-    let(:rm) { FactoryGirl.create(:reed_muller) }
-    before { get :show, id: rm.id }
-    it { response.should be_success }
   end
 end

@@ -1,13 +1,12 @@
 # Vektoriu reprezentuojanti klase
 
-class Vector < ActiveRecord::Base
+class BinaryVector < ActiveRecord::Base
   include Enumerable
 
-  attr_accessible :body, :elements, :size
+  attr_accessible :elements, :size
 
   # Validuoja vektoriaus elementus pagal
-  # duota kuna ir vektoriaus dydi
-  validates :body, presence: true
+  # kuna 01 ir vektoriaus dydi
   validates :elements, presence: true
   validate :elements_must_consist_of_body
   validate :elements_must_have_specified_length
@@ -21,7 +20,19 @@ class Vector < ActiveRecord::Base
   # Grazina n-taji vektoriaus elementa,
   # indeksuojant nuo 0
   def [] n
-    return elements[n]
+    elements[n]
+  end
+
+  # Ar tai toks pats vektorius?
+  def == other
+    self.elements == other.elements
+  end
+
+  def * other
+    new_elements = ''
+    (0..self.count-1).each { |i| new_elements << 
+      (self[i].to_i * other[i].to_i).to_s }
+    BinaryVector.new(elements: new_elements)
   end
 
   private
@@ -29,10 +40,10 @@ class Vector < ActiveRecord::Base
     # Validuoja, ar vektoriaus elementai susideda
     # tik is duoto kuno elementu
     def elements_must_consist_of_body
-      return if uninitialized?
+      return if self.elements.blank?
       self.elements.each_char do |e|
-        if !self.body.include? e
-          errors.add(:elements, "#{self.body} and elements #{self.elements} contains illegal element #{e}")
+        if !'01'.include? e
+          errors.add(:elements, "#{self.elements} contains illegal element #{e}")
           break
         end
       end
@@ -41,14 +52,10 @@ class Vector < ActiveRecord::Base
     # Validuoja, ar vektorius turi 
     # reikiama skaiciu elementu
     def elements_must_have_specified_length
-      return if size.nil? || uninitialized?
+      return if size.nil? || self.elements.blank?
       errors.add(
         :size, 
         "#{self.elements} has #{self.elements.length} characters, but it's size was set to #{self.size}") \
           if self.elements.length != self.size
-    end
-
-    def uninitialized?
-      self.body.blank? || self.elements.blank?
     end
 end

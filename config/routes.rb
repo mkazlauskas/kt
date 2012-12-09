@@ -16,7 +16,8 @@ Kt::Application.routes.draw do
   root :to => 'reed_mullers#new'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  resources :reed_mullers, only: [ :create, :show ]
+  resources :reed_mullers, only: [ :create ]
+  resources :binary_vectors, only: [ :new, :create ]
 
   # Sample resource route with options:
   #   resources :products do
