@@ -17,7 +17,7 @@ class Channel < ActiveRecord::Base
 
     def ruin?
       r = Random.new
-      r.rand(1..100) < reliability.to_i
+      r.rand(1..100) > reliability.to_i
     end
 
     def opposite(bit)
