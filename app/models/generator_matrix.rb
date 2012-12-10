@@ -1,4 +1,4 @@
-# Immutable
+# Generuojancia matrica reprezentuojanti klase
 
 class GeneratorMatrix < ActiveRecord::Base
   include Enumerable
@@ -9,12 +9,15 @@ class GeneratorMatrix < ActiveRecord::Base
   validate :cols_must_be_2_power
   after_initialize :generate_matrix
 
+  # Naudojama Enumerable mixino tam,
+  # kad sukurti ivairius iteraciju metodus
   def each
     @matrix.each { |row| yield row }
   end
 
-  def [] row
-    @matrix[row]
+  # Grazina n-taja matricos eilute
+  def [] n
+    @matrix[n]
   end
 
   protected 
@@ -119,6 +122,8 @@ class GeneratorMatrix < ActiveRecord::Base
       b ? 1 : 0
     end
 
+    # Patikrina, kad matricos stulpeliu skaicius butu
+    # dvejeto laipsnis
     def cols_must_be_2_power
       if !self.cols.nil? && self.m_calculation[1] != self.m_calculation[1].to_i
         errors.add(:cols, "#{self.cols} is not 2^m")

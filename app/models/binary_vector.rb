@@ -4,6 +4,7 @@ class BinaryVector < ActiveRecord::Base
   include Enumerable
 
   attr_accessible :elements, :size
+  belongs_to :reed_muller
 
   # Validuoja vektoriaus elementus pagal
   # kuna 01 ir vektoriaus dydi
@@ -30,9 +31,25 @@ class BinaryVector < ActiveRecord::Base
 
   def * other
     new_elements = ''
-    (0..self.count-1).each { |i| new_elements << 
-      (self[i].to_i * other[i].to_i).to_s }
+    if other.first.is_a? Enumerable
+      occurences = [0]*other.cols
+      (0...self.count).each do |i|
+        if self[i] == '1'
+          (0...other.cols).each do |j|
+            occurences[j] += other[i][j].to_i
+          end
+        end
+      end
+      new_elements = occurences.map { |o| (o % 2).to_s }.join('')
+    else
+      (0..self.count-1).each { |i| new_elements << 
+        (self[i].to_i * other[i].to_i).to_s }
+    end
     BinaryVector.new(elements: new_elements)
+  end
+
+  def to_s
+    elements
   end
 
   private
@@ -43,7 +60,7 @@ class BinaryVector < ActiveRecord::Base
       return if self.elements.blank?
       self.elements.each_char do |e|
         if !'01'.include? e
-          errors.add(:elements, "#{self.elements} contains illegal element #{e}")
+          errors.add(:elements, "#{self.elements} contains illegal element: #{e}")
           break
         end
       end
@@ -55,7 +72,7 @@ class BinaryVector < ActiveRecord::Base
       return if size.nil? || self.elements.blank?
       errors.add(
         :size, 
-        "#{self.elements} has #{self.elements.length} characters, but it's size was set to #{self.size}") \
+        "was set to #{self.size}, but #{self.elements} has #{self.elements.length} characters") \
           if self.elements.length != self.size
     end
 end

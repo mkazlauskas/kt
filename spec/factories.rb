@@ -1,7 +1,13 @@
 FactoryGirl.define do
 
   factory :reed_muller do
-    r 3
-    m 5
+    r 2
+    m 4
+    binary_vector
+  end
+
+  factory :binary_vector do
+    size 11
+    elements '01101001010'
   end
 end

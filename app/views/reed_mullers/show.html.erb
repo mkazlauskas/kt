@@ -1,0 +1,24 @@
+<% provide(:title, "Reed-Muller Code (r=#{@reed_muller.r}, m=#{@reed_muller.m})") %>
+
+<table class="table" id="results_table">
+  <tr>
+    <td><b>Raw</b></td>
+    <td><%= @reed_muller.binary_vector %></td>
+  </tr>
+  <tr>
+    <td><b>Encoded</b></td>
+    <td><%= @reed_muller.encoded_vector %></td>
+  </tr>
+</table>
+
+<h2>Generator Matrix</h2>
+
+<table class="table">
+<% @reed_muller.generator_matrix.each do |row| %>
+  <tr>
+    <% row.each do |cell| %>
+      <td><%= cell %></td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

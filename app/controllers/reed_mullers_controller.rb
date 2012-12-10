@@ -13,4 +13,8 @@ class ReedMullersController < ApplicationController
     @reed_muller = ReedMuller.new
   end
   
+  def show
+    @reed_muller = ReedMuller.find_by_id(params[:id])
+    return redirect_to root_path if @reed_muller.nil?
+  end
 end

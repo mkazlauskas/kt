@@ -1,0 +1,17 @@
+<% provide(:title, "Vector Encoding") %>
+
+<%= render partial: 'shared/error_messages', 
+  locals: {errors: @vector.errors} %>
+
+<h2>Base: { 0, 1 }, Length: <%= @vector.size %></h2>
+
+<%= simple_form_for(@vector, 
+      html: { class: 'form-inline' }) do |f| %>
+
+  <%= f.text_field :elements, placeholder: 'Vector' %>
+  <%= hidden_field_tag(:reed_muller_id, @reed_muller.id) %>
+  <%= f.hidden_field(:size) %>
+
+  <%= f.submit "Next", class: 'btn btn-primary' %>
+
+<% end %>

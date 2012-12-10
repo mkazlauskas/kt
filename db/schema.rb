@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121209183544) do
+ActiveRecord::Schema.define(:version => 20121209223615) do
 
   create_table "binary_vectors", :force => true do |t|
     t.string   "elements"
     t.integer  "size"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "reed_muller_id"
   end
 
   create_table "generator_matrices", :force => true do |t|
