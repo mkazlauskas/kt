@@ -1,4 +1,7 @@
 # Generuojancia matrica reprezentuojanti klase
+# TODO nuo rm(4,5) buna ragas, nes
+# gaunam x0,x1,x2,x3,x4...xm, 
+# o m-tosios eilutes jau nera
 
 class GeneratorMatrix < ActiveRecord::Base
   include Enumerable

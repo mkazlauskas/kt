@@ -10,7 +10,7 @@ class BinaryVectorsController < ApplicationController
   def create
     @vector = @reed_muller.build_binary_vector(params[:binary_vector])
     if @vector.save
-      redirect_to @reed_muller
+      redirect_to new_channel_path(reed_muller_id: @reed_muller.id)
     else
       render "new"
     end

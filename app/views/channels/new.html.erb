@@ -1,0 +1,14 @@
+<% provide(:title, "Channel Parameters") %>
+
+<%= render partial: 'shared/error_messages', 
+  locals: { errors: @channel.errors } %>
+
+<%= simple_form_for(@channel, 
+      html: { class: 'form-inline' }) do |f| %>
+
+  <%= f.text_field :reliability, placeholder: 'Reliability [1;100]' %>
+  <%= hidden_field_tag(:reed_muller_id, @reed_muller.id) %>
+
+  <%= f.submit "Next", class: 'btn btn-primary' %>
+
+<% end %>

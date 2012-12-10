@@ -29,7 +29,7 @@ describe BinaryVectorsController do
       describe 'with valid length' do
         let(:vector) { { elements: '1'*rm.code_length.size, size: rm.code_length.size } }
         before { post :create, binary_vector: vector, reed_muller_id: rm.id }
-        it { response.should redirect_to(reed_muller_path(id: rm.id)) }
+        it { response.should redirect_to(new_channel_path(reed_muller_id: rm.id)) }
       end
 
       describe 'with invalid length' do

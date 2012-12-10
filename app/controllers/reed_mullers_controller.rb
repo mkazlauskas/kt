@@ -16,5 +16,8 @@ class ReedMullersController < ApplicationController
   def show
     @reed_muller = ReedMuller.find_by_id(params[:id])
     return redirect_to root_path if @reed_muller.nil?
+    received = @reed_muller.channel.send_vector(@reed_muller.encoded_vector)
+    @received_vector = received[0]
+    @error_indexes = received[1].map { |i| i.to_s }.join(', ')
   end
 end

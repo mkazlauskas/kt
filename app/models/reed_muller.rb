@@ -5,6 +5,7 @@ class ReedMuller < ActiveRecord::Base
 
   attr_accessible :m, :r
   has_one :binary_vector
+  has_one :channel
 
   # Validuoja kodo parametrus
   validates :r, presence: true, numericality: { greater_than_or_equal_to: 0 }, reduce: true

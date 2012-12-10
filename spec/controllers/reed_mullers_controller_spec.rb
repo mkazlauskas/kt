@@ -50,6 +50,8 @@ describe ReedMullersController do
       before { get :show, id: rm.id }
       it { response.should be_success }
       it { assigns(:reed_muller).should_not be_nil }
+      it { assigns(:received_vector).should_not be_nil }
+      it { assigns(:error_indexes).should_not be_nil }
     end
 
     describe 'with invalid id' do
