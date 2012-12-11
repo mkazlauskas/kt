@@ -52,6 +52,7 @@ describe ReedMullersController do
       it { assigns(:reed_muller).should_not be_nil }
       it { assigns(:received_vector).should_not be_nil }
       it { assigns(:error_indexes).should_not be_nil }
+      it { assigns(:decoded_vector).should_not be_nil }
     end
 
     describe 'with invalid id' do

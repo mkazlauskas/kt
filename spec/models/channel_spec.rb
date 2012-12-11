@@ -20,9 +20,11 @@ describe Channel do
       let(:vector) { BinaryVector.new(elements: '0111100000001111110101010101100001111') }
       let(:result) { channel.send_vector(vector) }
       it { result[0].should_not == vector }
-      it { result[1].count.should_not == 0 }
-      it { result[1][0].is_a?(Integer).should == true }
+    end
 
+    describe '#diff' do
+      let(:result) { Channel.diff('0101', '1100') }
+      it { result.should == [0,3] }
     end
   end
 end

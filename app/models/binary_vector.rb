@@ -26,6 +26,7 @@ class BinaryVector < ActiveRecord::Base
 
   # Ar tai toks pats vektorius?
   def == other
+    return false if other.nil?
     self.elements == other.elements
   end
 
@@ -46,6 +47,18 @@ class BinaryVector < ActiveRecord::Base
         (self[i].to_i * other[i].to_i).to_s }
     end
     BinaryVector.new(elements: new_elements)
+  end
+
+  def + other
+    result = ''
+    mem = 0
+    (self.count-1).downto(0).each do |index|
+      ones = [self[index], other[index]].count('1')
+      result << (ones % 2).to_s 
+      ones += mem
+      mem = ones / 2
+    end
+    BinaryVector.new(elements: result.reverse)
   end
 
   def to_s

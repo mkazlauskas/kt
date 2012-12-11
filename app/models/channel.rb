@@ -9,8 +9,15 @@ class Channel < ActiveRecord::Base
     vector.each do |element|
       ruined_elements << (self.ruin? ? opposite(element) : element)
     end
-    [ BinaryVector.new(elements: ruined_elements),
-      diff(vector.elements, ruined_elements) ]
+    BinaryVector.new(elements: ruined_elements)
+  end
+
+  def self.diff(first, second)
+    result = []
+    (0...(first.length)).each do |index|
+      (result << index) if first[index] != second[index]
+    end
+    result
   end
 
   protected
@@ -22,13 +29,5 @@ class Channel < ActiveRecord::Base
 
     def opposite(bit)
       bit == '1' ? '0' : '1'
-    end
-
-    def diff(first, second)
-      result = []
-      (0...(first.length)).each do |index|
-        (result << index) if first[index] != second[index]
-      end
-      result
     end
 end

@@ -23,25 +23,40 @@ class GeneratorMatrix < ActiveRecord::Base
     @matrix[n]
   end
 
+  def building_indexes
+    @building_indexes
+  end
+
+  def building_vectors
+    @building_vectors
+  end
+
+  # Suskaicuoja m pagal stulpeliu skaiciu
+  def m
+    m_calculation[0]
+  end
+
   protected 
 
     # Sugeneruojama matrica
     def generate_matrix
       return unless self.valid?
       all_blocks = self.generate_blocks
+      @building_vectors = all_blocks[1]
       @matrix = []
       
       # Pridedam 1..1
       @matrix << all_blocks[0]
       
       # Pradedam nuo x0
-      indexes = [0]
+      @building_indexes = [[0]]
 
       # Pridedam likusias eilutes
       (self.rows-1).times do |row|
-        @matrix << multiply_rows(all_blocks[1], indexes)
-        indexes = self.increment_indexes(indexes)
+        @matrix << multiply_rows(@building_vectors, @building_indexes.last)
+        @building_indexes << self.increment_indexes(@building_indexes.last.dup)
       end
+      @building_indexes.delete(@building_indexes.last)
     end
 
     # Grazina vektorius, is kuriu sudarinejame matrica
@@ -83,11 +98,13 @@ class GeneratorMatrix < ActiveRecord::Base
       critical_index = self.m - 1
 
       (indexes.count-1).downto(0) do |index|
-        if indexes[index] < critical_index
+        if indexes[index] < critical_index - indexes.count + index + 1
           indexes[index] += 1
           (index+1..num_indexes-1).each do |index|
             indexes[index] = indexes[index-1] + 1
-            return new_indexes_level(num_indexes) if indexes[index] > critical_index
+            if indexes[index] > critical_index
+              return new_indexes_level(num_indexes)
+            end
           end
           return indexes
         end
@@ -103,11 +120,6 @@ class GeneratorMatrix < ActiveRecord::Base
       (0..num_indexes).
         each { |i| indexes << i }
       indexes
-    end
-
-    # Suskaicuoja m pagal stulpeliu skaiciu
-    def m
-      m_calculation[0]
     end
 
     def m_calculation

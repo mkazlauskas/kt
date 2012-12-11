@@ -2,6 +2,7 @@
 
 class ReedMuller < ActiveRecord::Base
   include MathHelper
+  include ReedMullerHelper
 
   attr_accessible :m, :r
   has_one :binary_vector
@@ -19,6 +20,10 @@ class ReedMuller < ActiveRecord::Base
 
   def encoded_vector
     self.binary_vector * self.generator_matrix
+  end
+
+  def decode_vector(vector)
+    majority_logic_decoder(self.generator_matrix, vector)
   end
 
   # Uzkoduojamo vektoriaus ilgis

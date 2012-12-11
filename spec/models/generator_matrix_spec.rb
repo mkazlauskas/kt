@@ -48,4 +48,9 @@ describe GeneratorMatrix do
     g[9].should == BinaryVector.new(elements: '1010000010100000')
     g[10].should == BinaryVector.new(elements: '1000100010001000')
   end
+
+  it "should save building_vectors" do
+    g = GeneratorMatrix.new(rows: 16, cols: 16)
+    g.building_indexes.count.should == 15
+  end
 end
