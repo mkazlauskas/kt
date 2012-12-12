@@ -10,6 +10,7 @@ class StringMessage < ActiveRecord::Base
   # gabalais po nurodyta kieki bituku
   def bits_array(count)
     bits = ''
+    self.remove_non_ascii
     self.message.each_char { |c| bits << ascii_to_8bits(c.ord) }
     while bits.length % count != 0
       bits << '0'
@@ -19,6 +20,16 @@ class StringMessage < ActiveRecord::Base
       result << bits[start_index...start_index+count]
     end
     result
+  end
+
+  def remove_non_ascii
+    encoding_options = {
+      :invalid           => :replace,
+      :undef             => :replace,
+      :replace           => '',
+      :universal_newline => true
+    }
+    self.message = self.message.encode Encoding.find('ASCII'), encoding_options
   end
 
   # Pavercia duotus bitukus atgal i string'a
