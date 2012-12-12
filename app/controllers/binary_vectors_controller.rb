@@ -1,3 +1,6 @@
+# Vektoriaus kontroleris.
+# Kontroliuoja naujo vektoriaus kurima.
+
 class BinaryVectorsController < ReedMullerUsingControllerBase
 
   def new

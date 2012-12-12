@@ -6,6 +6,6 @@ describe ReedMullerHelper do
 
     let(:rm) { FactoryGirl.create(:reed_muller) }
     it { helper.majority_logic_decoder(rm.generator_matrix, 
-      rm.channel.send_vector(rm.encoded_vector)).should == rm.binary_vector }
+      rm.channel.send_vector(rm.encode_vector(rm.binary_vector))).should == rm.binary_vector }
   end
 end

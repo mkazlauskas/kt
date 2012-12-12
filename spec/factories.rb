@@ -13,6 +13,6 @@ FactoryGirl.define do
   end
 
   factory :channel do
-    reliability 95
+    reliability 99
   end
 end

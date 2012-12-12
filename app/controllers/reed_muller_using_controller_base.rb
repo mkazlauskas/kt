@@ -1,3 +1,6 @@
+# Bazine klase vektoriaus, teksto ir paveiksleliu controlleriams
+# Jie visi naudoja ta pati reed-muller koda
+
 class ReedMullerUsingControllerBase < ApplicationController
  
   before_filter :find_reed_muller

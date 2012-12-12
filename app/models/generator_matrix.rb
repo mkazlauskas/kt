@@ -1,7 +1,4 @@
 # Generuojancia matrica reprezentuojanti klase
-# TODO nuo rm(4,5) buna ragas, nes
-# gaunam x0,x1,x2,x3,x4...xm, 
-# o m-tosios eilutes jau nera
 
 class GeneratorMatrix < ActiveRecord::Base
   include Enumerable
@@ -23,10 +20,15 @@ class GeneratorMatrix < ActiveRecord::Base
     @matrix[n]
   end
 
+  # Grazina vektoriu indeksus, is kuriu
+  # sudaryta kiekviena eilute
   def building_indexes
     @building_indexes
   end
 
+  # Grazina vektorius, is kuriu sudaryta
+  # kiekviena eilute. Naudojama kartu su
+  # building_indexes
   def building_vectors
     @building_vectors
   end
@@ -122,6 +124,7 @@ class GeneratorMatrix < ActiveRecord::Base
       indexes
     end
 
+    # Suskaiciuoja m parametro reiksme
     def m_calculation
       result = 0
       counter = self.cols

@@ -1,3 +1,6 @@
+# Kanalo kontroleris
+# Kontroliuoja naujo kanalo kurima
+
 class ChannelsController < ApplicationController
 
   before_filter :find_reed_muller

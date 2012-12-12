@@ -30,9 +30,11 @@ class BinaryVector < ActiveRecord::Base
     self.elements == other.elements
   end
 
+  # Sudaugina su kitu vektorium arba su matrica
   def * other
     new_elements = ''
     if other.first.is_a? Enumerable
+      # Su matrica
       occurences = [0]*other.cols
       (0...self.count).each do |i|
         if self[i] == '1'
@@ -43,12 +45,14 @@ class BinaryVector < ActiveRecord::Base
       end
       new_elements = occurences.map { |o| (o % 2).to_s }.join('')
     else
+      # Su vektorium
       (0..self.count-1).each { |i| new_elements << 
         (self[i].to_i * other[i].to_i).to_s }
     end
     BinaryVector.new(elements: new_elements)
   end
 
+  # Sudeda su kitu vektorium
   def + other
     result = ''
     mem = 0
@@ -61,6 +65,7 @@ class BinaryVector < ActiveRecord::Base
     BinaryVector.new(elements: result.reverse)
   end
 
+  # Grazina elementus string'o pavidalu
   def to_s
     elements
   end

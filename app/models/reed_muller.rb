@@ -10,7 +10,7 @@ class ReedMuller < ActiveRecord::Base
   has_one :channel
 
   # Validuoja kodo parametrus
-  validates :r, presence: true, numericality: { greater_than_or_equal_to: 0 }, reduce: true
+  validates :r, presence: true, numericality: { greater_than_or_equal_to: 1 }, reduce: true
   validates :m, presence: true, numericality: true, reduce: true
   validate :r_is_less_than_or_equal_to_m
 
@@ -19,14 +19,12 @@ class ReedMuller < ActiveRecord::Base
     GeneratorMatrix.new(rows: code_length, cols: 2 ** m)
   end
 
-  def encoded_vector
-    self.binary_vector * self.generator_matrix
-  end
-
+  # Uzkoduoja duota vektoriu
   def encode_vector(vector)
     vector * self.generator_matrix
   end
 
+  # Dekoduoja duota vektoriu
   def decode_vector(vector)
     majority_logic_decoder(self.generator_matrix, vector)
   end
@@ -42,9 +40,10 @@ class ReedMuller < ActiveRecord::Base
 
   private
 
+    # r parametro validacija
     def r_is_less_than_or_equal_to_m
       return if self.r.nil? || self.m.nil?
-      errors.add(:r, "must be less than or equal to M (#{r}>#{m})") \
-        if self.r > self.m
+      errors.add(:r, "must be less than to M (#{r}>#{m})") \
+        if self.r >= self.m
     end
 end

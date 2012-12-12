@@ -42,6 +42,6 @@ describe ReedMuller do
     let(:rm) { FactoryGirl.create(:reed_muller, r: 2, m: 4, 
       binary_vector: FactoryGirl.create(
         :binary_vector, elements: '01101001010')) }
-    it { rm.encoded_vector.should == BinaryVector.new(elements: '1010111111111010') }
+    it { rm.encode_vector(rm.binary_vector).should == BinaryVector.new(elements: '1010111111111010') }
   end
 end

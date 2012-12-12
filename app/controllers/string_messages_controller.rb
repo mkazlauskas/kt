@@ -1,3 +1,6 @@
+# Teksto zinutes kontroleris.
+# Kontroliuoja naujos zinutes kurima.
+
 class StringMessagesController < ReedMullerUsingControllerBase
 
   def new
