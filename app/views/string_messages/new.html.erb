@@ -1,0 +1,14 @@
+<% provide(:title, "String Message Encoding") %>
+
+<%= render partial: 'shared/error_messages', 
+  locals: {errors: @string_message.errors} %>
+
+<%= simple_form_for(@string_message, 
+      html: { class: 'form-inline' }) do |f| %>
+
+  <%= f.text_area :message, placeholder: 'Message' %>
+  <%= hidden_field_tag(:reed_muller_id, @reed_muller.id) %>
+
+  <%= f.submit "Next", class: 'btn btn-primary' %>
+
+<% end %>

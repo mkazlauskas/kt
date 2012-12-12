@@ -1,34 +1,50 @@
 <% provide(:title, "Reed-Muller Code (r=#{@reed_muller.r}, m=#{@reed_muller.m})") %>
 
-<%= render partial: 'shared/error_messages', 
-  locals: { errors: @received_vector.errors } %>
+
+<%= (render partial: 'shared/error_messages', 
+  locals: { errors: @received_vector.errors }) if !@reed_muller.binary_vector.nil? %>
 
 <table class="table" id="results_table">
+  <% if !@reed_muller.binary_vector.nil? %>
+    <tr>
+      <td><b>Raw</b></td>
+      <td><%= @reed_muller.binary_vector %></td>
+    </tr>
+    <tr>
+      <td><b>Encoded</b></td>
+      <td><%= @reed_muller.encoded_vector %></td>
+    </tr>
+    <tr>
+      <td><b>Received</b></td>
+      <td>
+        <%= form_for(@received_vector, html: { class: 'form-inline no-bottom-margin' }, url: reed_muller_path(@reed_muller), method: :get) do |f| %>
+          <%= f.text_field :elements %>
+          <%= f.submit 'Change', class: 'btn btn-primary' %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td><b>Error Indexes</b></td>
+      <td><%= @error_indexes %></td>
+    </tr>
+    <tr>
+      <td><b>Decoded</b></td>
+      <td><%= @decoded_vector %></td>
+    </tr>
+<% elsif !@reed_muller.string_message.nil? %>
   <tr>
     <td><b>Raw</b></td>
-    <td><%= @reed_muller.binary_vector %></td>
+    <td><%= @reed_muller.string_message %></td>
   </tr>
   <tr>
-    <td><b>Encoded</b></td>
-    <td><%= @reed_muller.encoded_vector %></td>
+    <td><b>Received (no code)</b></td>
+    <td><%= @sent_no_code %></td>
   </tr>
   <tr>
-    <td><b>Received</b></td>
-    <td>
-      <%= form_for(@received_vector, html: { class: 'form-inline no-bottom-margin' }, url: reed_muller_path(@reed_muller), method: :get) do |f| %>
-        <%= f.text_field :elements %>
-        <%= f.submit 'Change', class: 'btn btn-primary' %>
-      <% end %>
-    </td>
+    <td><b>Received (Reed-Muller code)</b></td>
+    <td><%= @received %></td>
   </tr>
-  <tr>
-    <td><b>Error Indexes</b></td>
-    <td><%= @error_indexes %></td>
-  </tr>
-  <tr>
-    <td><b>Decoded</b></td>
-    <td><%= @decoded_vector %></td>
-  </tr>
+<% end %>
 </table>
 
 <h2>Generator Matrix</h2>

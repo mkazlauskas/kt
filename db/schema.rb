@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210121752) do
+ActiveRecord::Schema.define(:version => 20121212134451) do
 
   create_table "binary_vectors", :force => true do |t|
     t.string   "elements"
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(:version => 20121210121752) do
     t.integer  "m"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "string_messages", :force => true do |t|
+    t.string   "message"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "reed_muller_id"
   end
 
 end

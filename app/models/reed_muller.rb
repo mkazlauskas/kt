@@ -6,6 +6,7 @@ class ReedMuller < ActiveRecord::Base
 
   attr_accessible :m, :r
   has_one :binary_vector
+  has_one :string_message
   has_one :channel
 
   # Validuoja kodo parametrus
@@ -20,6 +21,10 @@ class ReedMuller < ActiveRecord::Base
 
   def encoded_vector
     self.binary_vector * self.generator_matrix
+  end
+
+  def encode_vector(vector)
+    vector * self.generator_matrix
   end
 
   def decode_vector(vector)
